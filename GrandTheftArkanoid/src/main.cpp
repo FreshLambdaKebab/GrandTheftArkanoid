@@ -1,10 +1,11 @@
 #include <iostream>
-#include <GL\glew.h>
-#include <GLFW\glfw3.h>
+#include "Framework.h"
 
-int main()
+int main(int argc,char* argv)
 {
-	std::cout << "hello fuckwits of america!" << std::endl;
+	Framework framework;
+	framework.Initialize();
+	framework.Run();
 
 	return 0;
 }
