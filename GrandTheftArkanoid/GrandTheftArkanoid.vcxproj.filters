@@ -9,9 +9,11 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Framework.cpp" />
+    <ClCompile Include="src\GameScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework.h" />
     <ClInclude Include="src\SystemDefs.h" />
+    <ClInclude Include="src\GameScene.h" />
   </ItemGroup>
 </Project>

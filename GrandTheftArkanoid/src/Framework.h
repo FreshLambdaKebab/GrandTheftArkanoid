@@ -1,7 +1,6 @@
 #pragma once
 
-#include "SystemDefs.h"
-#include <GLFW\glfw3.h>
+#include "GameScene.h"
 
 class Framework
 {
@@ -11,6 +10,7 @@ public:
 
 	void Initialize();
 	void Run();
+
 
 private:
 	GLFWwindow* m_window;

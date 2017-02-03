@@ -1,5 +1,7 @@
 #include "Framework.h"
 
+GameScene Arkanoid(SCREEN_WIDTH, SCREEN_HEIGHT);
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 Framework::Framework():
@@ -44,10 +46,15 @@ void Framework::Initialize()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	//initialize the game scene object
+	Arkanoid.Init();
 }
 
 void Framework::Run()
 {
+	//set the state to the playing state
+	Arkanoid.SetState(GameState::GAME_PLAY);
+
 	// Game loop
 	while (!glfwWindowShouldClose(m_window))
 	{
@@ -57,16 +64,18 @@ void Framework::Run()
 		m_lastFrame = currentFrame;
 		glfwPollEvents();
 
-
-		//manage user input
+		//handle user input
+		Arkanoid.ProcessInput(m_deltaTime);
 
 		//update game state
+		Arkanoid.Update(m_deltaTime);
 
 		// Render
 		glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
   
 		//render game
+		Arkanoid.Draw();
 
 		// Swap the screen buffers
 		glfwSwapBuffers(m_window);
@@ -77,4 +86,14 @@ void key_callback(GLFWwindow * window, int key, int scancode, int action, int mo
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
+
+	//game key callback
+	if (key >= 0 && key < 1024)
+	{
+		if (action == GLFW_PRESS)
+			Arkanoid.keys[key] = true;
+		else if (action == GLFW_RELEASE)
+			Arkanoid.keys[key] = false;
+		Arkanoid.keysProcessed[key] = false;
+	}
 }
